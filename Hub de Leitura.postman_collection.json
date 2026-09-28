@@ -238,6 +238,45 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "Cadastrar usuário com senha curta",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status deve ser 400\", function () {\r\npm.response.to.have.status(400);\r\n});\r\n \r\npm.test(\"Senha deve ter pelo menos 6 caracteres.\", function () {\r\npm.expect(pm.response.text()).to.not.be.empty;\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\"name\": \"Alexandre\",\r\n\"email\": \"alexandre_teste@email.com\",\r\n\"password\": \"123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}users",
+              "host": [
+                "{{baseUrl}}users"
+              ]
+            }
+          },
+          "response": []
         }
       ]
     },
